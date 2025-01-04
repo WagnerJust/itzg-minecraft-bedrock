@@ -1,0 +1,22 @@
+services:
+  bedrockServer:
+    image: itzg/minecraft-bedrock-server
+    container_name: ${SERVER_NAME}
+    environment:
+      EULA: "${EULA}"
+      SERVER_NAME: "${SERVER_NAME}"
+      DIFFICULTY: "${DIFFICULTY}"
+    deploy:
+      resources:
+        limits:
+          cpus: "${CPUS}"
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "${PORT}:19132/udp"
+    volumes:
+      - ${DATA_DIR}:/data
+    stdin_open: true
+    tty: true
